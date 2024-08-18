@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import EventList from "./EventList";
 import EventForm from "./EventForm";
-import "./App.css";
 
 const App = () => {
   const [events, setEvents] = useState([
