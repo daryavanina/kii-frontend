@@ -17,13 +17,13 @@ const App = () => {
           id: 1,
           teamName: "Команда 1",
           teamTelegram: "team1",
-          membersCount: 5,
+          membersCount: 1,
         },
         {
           id: 2,
           teamName: "Команда 2",
           teamTelegram: "team2",
-          membersCount: 4,
+          membersCount: 2,
         },
         {
           id: 3,
