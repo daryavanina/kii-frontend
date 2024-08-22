@@ -25,13 +25,13 @@ const EventForm = ({
     }
   }, [event]);
 
-  //console.log(events.length);
+  //console.log(events);
   const handleSubmit = (e) => {
     //добавляет мероприятие по клику
     e.preventDefault();
     const id = events.length + 1;
     const newEvent = {
-      id: event ? event.id : id, //редактируется ? существующий id, новый
+      id: event ? event.id : id, //редактируется ? существующий id : новый
       name,
       date,
       description,

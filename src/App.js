@@ -45,6 +45,7 @@ const App = () => {
   const addEvent = (event) => {
     setEvents([event, ...events]);
     setShowForm(false);
+    setTimeout(1000);
   };
 
   //обновление мероприятия
@@ -150,6 +151,7 @@ const App = () => {
           <div className="event-form">
             {showForm && (
               <EventForm
+                events={events}
                 onAddEvent={addEvent}
                 onClose={() => setShowForm(false)}
               />
