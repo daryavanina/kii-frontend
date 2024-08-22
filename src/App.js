@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import EventList from "./EventList";
 import EventForm from "./EventForm";
-import api from './api.js'
+import AuthForm from "./AuthForm.js";
+import api from "./api.js";
 
 const App = () => {
   const [events, setEvents] = useState([
@@ -38,8 +39,9 @@ const App = () => {
   const [selectedEvent, setSelectedEvent] = useState(null); //выбранное мероприятие
   const [editingEvent, setEditingEvent] = useState(null); //редактируемое мероприятие
   const [showTeams, setShowTeams] = useState(null); //id мероприятия для отображения команд
-  const [isAdmin, setIsAdmin] = useState("notLoggedIn"); //"логин", не залогинен, юзер или админ
+  const [userStatus, setUserStatus] = useState("notLoggedIn"); //"логин", не залогинен, юзер или админ
   const [showRegForm, setShowRegForm] = useState(false); //отображается ли форма добавления команды
+  const [showLogForm, setShowLogForm] = useState(false); //отображается ли форма регистрации
 
   //добавление мероприятия в массив (скрывает форму добавления)
   const addEvent = (event) => {
@@ -93,7 +95,7 @@ const App = () => {
 
   //отображает форму для регистрации (тут логика немного другая, чем выше, пушто писала сама)
   const showRegistrationForm = (event) => {
-    if (isAdmin !== "notLoggedIn") {
+    if (userStatus !== "notLoggedIn") {
       // Если пользователь является обычным пользователем, показываем форму регистрации
       setSelectedEvent(event);
       setShowRegForm(true);
@@ -134,30 +136,31 @@ const App = () => {
     <div className="App">
       <div className="header">
         <h1 className="title">Мероприятия</h1>
-        {isAdmin === "admin" && (
+        {userStatus === "admin" && (
           <button className="add-button" onClick={() => setShowForm(true)}>
             +
           </button>
         )}
-        <p>
-          извините, вы админ?
-          <button onClick={() => setIsAdmin("admin")}>да</button>
-          <button onClick={() => setIsAdmin("user")}>no</button>
-        </p>
-        {isAdmin === "notLoggedIn" && <p>Чичас вы никто...</p>}
-      </div>
-      <div className="event-container">
-        {isAdmin === "admin" && ( //проверка, если вы начали добавлять меро, а потом перестали быть админом (дурак)
-          <div className="event-form">
-            {showForm && (
-              <EventForm
-                events={events}
-                onAddEvent={addEvent}
-                onClose={() => setShowForm(false)}
-              />
-            )}
-          </div>
+        <div>
+          {!showLogForm && (
+            <button onClick={() => setShowLogForm(true)}>Войти</button>
+          )}
+        </div>
+        {showLogForm && (
+          <AuthForm setUserStatus={setUserStatus} />
         )}
+      </div>
+
+      <div className="event-container">
+        <div className="event-form">
+          {showForm && (
+            <EventForm
+              events={events}
+              onAddEvent={addEvent}
+              onClose={() => setShowForm(false)}
+            />
+          )}
+        </div>
         <div className="event-list">
           <EventList
             events={events}
@@ -175,7 +178,7 @@ const App = () => {
             onCloseRegForm={closeRegForm}
             onAddTeam={addTeam}
             onDeleteTeam={deleteTeam}
-            isAdmin={isAdmin}
+            userStatus={userStatus}
           />
         </div>
       </div>
