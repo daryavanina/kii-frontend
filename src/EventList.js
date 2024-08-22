@@ -21,7 +21,7 @@ const EventList = ({
   onCloseRegForm,
   onAddTeam,
   onDeleteTeam,
-  isAdmin,
+  userStatus,
 }) => {
   //удаление команды по клику
   const handleDeleteTeam = (teamId, eventId) => {
@@ -51,7 +51,7 @@ const EventList = ({
               <h3>{event.name}</h3>
               <p>{event.date}</p>
             </div>
-            {isAdmin === "admin" &&
+            {userStatus === "admin" &&
               !showRegForm && ( //значки редактирования и удаления (для админа && убираются, если открыта рег.форма)
                 <div className="event-actions">
                   <img
@@ -123,7 +123,7 @@ const EventList = ({
                                 </td>
                                 <td>@{team.teamTelegram}</td>
                                 <td>{team.membersCount}</td>
-                                {isAdmin === "admin" && ( //кнопка удалить (команду) для админа
+                                {userStatus === "admin" && ( //кнопка удалить (команду) для админа
                                   <td>
                                     <img
                                       src={deleteIcon}
