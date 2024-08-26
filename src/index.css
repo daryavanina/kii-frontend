@@ -1,195 +1,338 @@
-/*body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Основные стили для приложения */
+
+:root {
+    --primary-color: #232429; /* Новый цвет для всех кнопок */
+    --primary-color-hover: #1c1d20; /* Оттенок для hover */
+    --background-color: #f7f9fc; /* Основной цвет фона */
+    --text-color: #000;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --font-family: 'Roboto', Arial, sans-serif;
+    --transition-duration: 0.3s;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}*/
-
-.main-block {
-  width: 823px;
-  height: 100px;
-  background: #ffffff;
-  border: 3px solid #000000;
-  border-radius: 40px;
-  text-align: left;
-  font-size: 48pt;
-  color: rgba(0, 0, 0, 0.4);
-}
-
-.circle-plus {
-  cursor: pointer;
-  width: 100px;
-  height: 100px;
-  background: #ffffff;
-  border: 3px solid #000000;
-  border-radius: 50%;
-  position: absolute;
-  left: 1050px;
-  top: 130px;
-  text-align: center;
-  font-size: 48pt;
-  color: #000000;
-}
-
-.block {
-  width: 823px;
-  height: 100px;
-  background: #ffffff;
-  border: 3px solid #000000;
-  border-radius: 40px;
-  position: absolute;
-  left: 200px;
-  top: 300px;
-
-  text-align: left;
-  font-size: 40pt;
-  color: #000000;
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
-  font-family: Arial, sans-serif;
-  text-align: center;
+    font-family: var(--font-family);
+    padding: 20px;
+    text-align: center;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: var(--background-color); /* Совпадает с фоном */
+    color: black;
+    margin-bottom: 20px;
+    border-radius: var(--border-radius);
 }
 
 .title {
-  border: 3px solid black;
-  border-radius: 40px;
-  padding: 10px;
-  margin: 0;
-  font-size: 40pt;
+    font-size: 36px;
+    color: var(--primary-color);
+    margin: 0 auto; /* Центрирование текста */
 }
 
-.event-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.event-list {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.event-item {
-  border: 3px solid #000000;
-  border-radius: 40px;
-  padding: 10px;
-  cursor: pointer;
-  width: 50%;
-  position: relative;
-  margin: 0 auto;
-  margin-bottom: 10px;
-  /*overflow: auto; для прокрутки*/
-}
-
-.event-item:hover {
-  background-color: #f0f0f0;
-}
-
-.event-actions {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-}
-
-.event-actions img {
-  width: 20px;
-  height: 20px;
-  margin: 0 auto;
-  margin-left: 20px;
-
-  cursor: pointer;
-}
-
-.event-details {
-  margin-top: 10px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.event-details button {
-  margin-top: 10px;
-  margin-right: 10px;
-}
-
-.close {
-  width: 20px;
-  height: 20px;
+.add-button-container {
+    margin: 20px 0;
 }
 
 .add-button {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  border: 3px solid #000000;
+    width: 50px; /* Уменьшен размер */
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none; /* Убрана обводка */
+    font-size: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
 
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-  font-size: 48px;
-  margin: 10px;
+    .add-button:hover {
+        background-color: var(--primary-color-hover);
+    }
+
+.event-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-list {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.event-item {
+    position: relative; /* Для позиционирования иконок */
+    border: 3px solid #000000;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    cursor: pointer;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    transition: background-color var(--transition-duration) ease;
+}
+
+    .event-item:hover {
+        background-color: #f0f0f0; /* Только изменение фона при hover */
+    }
+
+.event-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Исправлено положение иконок */
+}
+
+    .event-actions img {
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: transform var(--transition-duration) ease;
+    }
+
+        .event-actions img:hover {
+            transform: scale(1.2);
+        }
+
+.event-details {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: var(--border-radius);
+}
+
+    .event-details button {
+        margin-top: 10px;
+        margin-right: 10px;
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: background-color var(--transition-duration) ease;
+    }
+
+        .event-details button:hover {
+            background-color: var(--primary-color-hover);
+        }
+
+.close {
+    width: 20px;
+    height: 20px;
 }
 
 .event-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: white;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative; /* Добавлено для позиционирования внутри формы */
 }
 
-.event-form label {
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.event-form input,
-.event-form textarea {
-  width: 100%;
-  margin-top: 5px;
-}
-
-.event-form button {
-  margin-top: 10px;
+.close-button-container {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: -15px; /* Подняли кнопку выше формы */
+    right: 0px;
 }
 
 .close-button {
-  align-self: flex-end;
-  margin-bottom: 10px;
+    background: none;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+    color: var(--primary-color);
+}
+
+/* Исправлено центрирование полей формы */
+.event-form,
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование всех элементов формы по горизонтали */
+    background-color: white;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box; /* Учитываем padding */
+}
+
+    .event-form label,
+    .registration-form label {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .event-form input,
+    .event-form textarea,
+    .registration-form input,
+    .registration-form textarea {
+        width: 100%; /* Занимают всю ширину контейнера */
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        transition: border-color var(--transition-duration) ease;
+        box-sizing: border-box; /* Padding учитывается */
+    }
+
+        .event-form input:focus,
+        .event-form textarea:focus,
+        .registration-form input:focus,
+        .registration-form textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+    .event-form button,
+    .registration-form button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: background-color var(--transition-duration) ease;
+        align-self: center; /* Центрируем кнопку */
+    }
+
+        .event-form button:hover,
+        .registration-form button:hover {
+            background-color: var(--primary-color-hover);
+        }
+
+.close-button {
+    align-self: flex-end;
+    margin-bottom: 10px;
 }
 
 .teams-list {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
-.teams-list table {
-  width: 100%;
-  border-collapse: collapse;
-}
-/*
-.teams-list th, .teams-list td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}*/
-/*
-.teams-list th {
-  background-color: #f2f2f2;
-}*/
+    .teams-list table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
 .delete-team {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 768px) {
+    .event-item {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .header {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .add-button {
+        margin-top: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 32px;
+    }
+}
+
+/* Стили для формы входа */
+.auth-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.auth-form,
+.auth-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование содержимого */
+    background-color: #f0f2f5;
+    padding: 10px; /* Отступы внутри формы */
+    border-radius: 8px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    width: 195px; /* Ширина формы увеличена в 1,3 раза */
+}
+
+    .auth-form label,
+    .auth-status p {
+        margin-bottom: 8px; /* Отступы между элементами */
+        width: 100%;
+        font-size: 0.875rem; /* Размер шрифта */
+    }
+
+    .auth-form input,
+    .auth-status input {
+        width: calc(100% - 10px); /* Поля ввода занимают всю ширину формы с учетом padding */
+        padding: 6px; /* Отступы внутри полей ввода */
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        font-size: 0.875rem; /* Размер шрифта */
+    }
+
+    .auth-form button,
+    .auth-status button {
+        background-color: #232429;
+        color: white;
+        border: none;
+        padding: 6px 12px; /* Отступы внутри кнопок */
+        cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 0.875rem; /* Размер шрифта */
+    }
+
+        .auth-form button:hover,
+        .auth-status button:hover {
+            background-color: #3b3e45;
+        }
+
+
+/* Радио-кнопки с отступами */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Добавляем отступ между строками */
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 2px; /* Отступ между радио-кнопкой и цифрой */
 }
