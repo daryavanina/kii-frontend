@@ -1,70 +1,265 @@
-# Getting Started with Create React App
+# **kii-frontend**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **Содержание**
 
-## Available Scripts
+1. Общая информация  
+2. Установка и запуск  
+3. Структура проекта  
+4. Компоненты  
+   * App.js  
+   * EventList.js  
+   * EventForm.js  
+   * TeamForm.js  
+   * AuthForm.js  
+5. Стили  
+6. Функциональность  
+   * Добавление мероприятия  
+   * Редактирование мероприятия  
+   * Удаление мероприятия  
+   * Просмотр деталей мероприятия  
+   * Регистрация команды  
+   * Аутентификация пользователей  
+7. Используемые технологии
 
-In the project directory, you can run:
+## **Общая информация**
 
-### `npm start`
+Приложение "Мероприятия" предназначено для управления мероприятиями и командами, участвующими в этих мероприятиях. Оно поддерживает функциональность добавления, редактирования, удаления мероприятий, а также регистрации команд и аутентификации пользователей.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **Установка и запуск**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Клонирование репозитория:**  
+bash  
+Copy code  
+`git clone <URL репозитория>`
 
-### `npm test`
+1. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Установка зависимостей:**  
+bash  
+Copy code  
+`cd <папка проекта>`  
+`npm install`
 
-### `npm run build`
+2. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Запуск приложения:**  
+bash  
+Copy code  
+`npm start`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Приложение будет доступно по адресу: `http://localhost:3000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## **Структура проекта**
 
-### `npm run eject`
+Проект состоит из следующих основных файлов и папок:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+bash  
+Copy code  
+`/src`  
+`│`  
+`├── components`  
+`│   ├── App.js`  
+`│   ├── EventList.js`  
+`│   ├── EventForm.js`  
+`│   ├── TeamForm.js`  
+`│   └── AuthForm.js`  
+`│`  
+`├── styles`  
+`│   └── App.css`  
+`│`  
+`└── index.js`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* **components**: содержит все основные React-компоненты.  
+* **styles**: содержит стили CSS для приложения.  
+* **index.js**: начальная точка входа в приложение.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## **Компоненты**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **App.js**
 
-## Learn More
+**Функции:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Управляет состоянием всего приложения.  
+* Хранит список мероприятий и текущий статус (отображение формы добавления, редактирования и деталей мероприятия).  
+* Предоставляет функции для добавления, редактирования и удаления мероприятий.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Состояние:**
 
-### Code Splitting
+* `events`: массив мероприятий.  
+* `showForm`: булевое значение, указывающее на отображение формы добавления мероприятия.  
+* `selectedEvent`: выбранное мероприятие для отображения деталей.  
+* `editingEvent`: мероприятие, которое редактируется.  
+* `showTeams`: ID мероприятия, для которого отображаются команды.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Методы:**
 
-### Analyzing the Bundle Size
+* `addEvent`: добавляет новое мероприятие в массив `events`.  
+* `updateEvent`: обновляет существующее мероприятие в массиве `events`.  
+* `deleteEvent`: удаляет мероприятие из массива `events`.  
+* `viewEventDetails`: устанавливает выбранное мероприятие для отображения деталей.  
+* `editEvent`: переключает состояние на редактирование мероприятия.  
+* `closeDetails`: закрывает отображение деталей и формы редактирования.  
+* `toggleTeams`: переключает отображение списка команд для мероприятия.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### **EventList.js**
 
-### Making a Progressive Web App
+**Пропсы:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* `events`: массив мероприятий.  
+* `onViewDetails`: функция для отображения деталей мероприятия.  
+* `selectedEvent`: выбранное мероприятие.  
+* `onEditEvent`: функция для редактирования мероприятия.  
+* `onDeleteEvent`: функция для удаления мероприятия.  
+* `onCloseDetails`: функция для закрытия деталей.  
+* `editingEvent`: текущее редактируемое мероприятие.  
+* `onUpdateEvent`: функция для обновления мероприятия.  
+* `showTeams`: ID мероприятия для отображения команд.  
+* `onToggleTeams`: функция для переключения отображения команд.
 
-### Advanced Configuration
+**Рендеринг:**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Отображает список всех мероприятий.  
+* При клике на мероприятие отображаются его детали.  
+* Если мероприятие редактируется, отображается форма редактирования.
 
-### Deployment
+### **EventForm.js**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Пропсы:**
 
-### `npm run build` fails to minify
+* `events`: массив мероприятий.  
+* `event`: мероприятие, которое редактируется.  
+* `onAddEvent`: функция для добавления/обновления мероприятия.  
+* `onClose`: функция для закрытия формы.  
+* `isEditing`: флаг, определяющий, редактируется мероприятие или создается новое.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Состояние:**
+
+* `name`, `date`, `description`, `teamCount`: значения полей формы.  
+* `teams`: список команд для мероприятия.
+
+**Рендеринг:**
+
+* Отображает форму для создания или редактирования мероприятия.
+
+### **TeamForm.js**
+
+**Пропсы:**
+
+* `team`: команда для редактирования.  
+* `event`: текущее мероприятие.  
+* `onAddTeam`: функция для добавления команды.  
+* `onClose`: функция для закрытия формы.
+
+**Состояние:**
+
+* `teamName`: название команды.  
+* `teamTelegram`: Telegram капитана команды.  
+* `membersCount`: количество участников команды.
+
+**Рендеринг:**
+
+* Отображает форму для регистрации новой команды в мероприятии.
+
+### **AuthForm.js**
+
+**Пропсы:**
+
+* `setUserStatus`: функция для установки статуса пользователя (администратор или обычный пользователь).
+
+**Состояние:**
+
+* `users`: массив зарегистрированных пользователей.  
+* `isLoggedIn`: флаг, указывающий, залогинен ли пользователь.  
+* `currentUser`: текущий пользователь.
+
+**Рендеринг:**
+
+* Отображает форму входа для аутентификации пользователя.  
+* Если пользователь залогинен, отображает его статус и кнопку для выхода из аккаунта.
+
+## **Стили**
+
+Все стили для приложения хранятся в файле `App.css`.
+
+**Основные переменные:**
+
+* `--primary-color`: основной цвет для кнопок и элементов.  
+* `--primary-color-hover`: цвет при наведении.  
+* `--background-color`: основной цвет фона.  
+* `--text-color`: цвет текста.  
+* `--border-radius`: радиус скругления углов для блоков.  
+* `--box-shadow`: тень для блоков.
+
+**Основные классы:**
+
+* `.App`: основной контейнер приложения.  
+* `.header`: заголовок приложения с центровкой.  
+* `.add-button`: кнопка для добавления нового мероприятия.  
+* `.event-item`: стили для каждого мероприятия в списке.  
+* `.event-form`: стили для формы добавления/редактирования мероприятия.  
+* `.auth-form`: стили для формы аутентификации.
+
+## **Функциональность**
+
+### **Добавление мероприятия**
+
+1. Нажмите на кнопку "плюс" в верхней части приложения.  
+2. Заполните поля формы:  
+   * Название  
+   * Дата  
+   * Описание  
+   * Количество команд  
+3. Нажмите кнопку "Добавить".  
+4. Новое мероприятие будет добавлено в список.
+
+### **Редактирование мероприятия**
+
+1. Найдите нужное мероприятие в списке и нажмите на иконку редактирования.  
+2. Отредактируйте поля в открывшейся форме.  
+3. Нажмите кнопку "Сохранить".  
+4. Изменения будут применены.
+
+### **Удаление мероприятия**
+
+1. Найдите нужное мероприятие в списке и нажмите на иконку удаления.  
+2. Подтвердите удаление.  
+3. Мероприятие будет удалено из списка.
+
+### **Просмотр деталей мероприятия**
+
+1. Нажмите на мероприятие в списке.  
+2. Внизу карточки появятся детали мероприятия:  
+   * Название  
+   * Дата  
+   * Описание  
+   * Количество команд  
+3. Для скрытия деталей нажмите на кнопку "Закрыть".
+
+### **Регистрация команды**
+
+1. Найдите нужное мероприятие в списке и откройте его детали.  
+2. Нажмите на кнопку "Список команд".  
+3. В открывшемся списке команд нажмите на кнопку "Добавить команду".  
+4. Заполните поля формы:  
+   * Название команды  
+   * Ник в TG  
+   * Количество участников  
+5. Нажмите кнопку "Зарегистрировать".
+
+### **Аутентификация пользователей**
+
+1. В правом верхнем углу находится форма аутентификации.  
+2. Введите логин и пароль:  
+   * Логин: 1 (для администратора) или 2 (для обычного пользователя)  
+   * Пароль: 1 или 2 (соответствует логину)  
+3. Нажмите кнопку "Войти".  
+4. После успешной аутентификации будет указан статус пользователя (администратор или пользователь).  
+5. Для выхода нажмите на кнопку "Выйти".
+
+## **Используемые технологии**
+
+* **React**: основная библиотека для создания пользовательского интерфейса.  
+* **JavaScript (ES6+)**: язык программирования.  
+* **HTML/CSS**: для структуры и стилизации интерфейса.  
+* **CSS Variables**: для управления темой и стилизацией.
+
