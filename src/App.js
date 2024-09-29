@@ -1,40 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EventList from "./EventList";
 import EventForm from "./EventForm";
 import AuthForm from "./AuthForm.js";
 import api from "./api.js";
 
 const App = () => {
-    const [events, setEvents] = useState([
-        {
-            id: 1,
-            name: "Примерное мероприятие",
-            date: "2023-01-01",
-            description:
-                "Это чтобы проверить, как у пользователя будет отображаться рега на меро, а то бека нет(((",
-            teamCount: 0,
-            teams: [
-                {
-                    id: 1,
-                    teamName: "Команда 1",
-                    teamTelegram: "team1",
-                    membersCount: 1,
-                },
-                {
-                    id: 2,
-                    teamName: "Команда 2",
-                    teamTelegram: "team2",
-                    membersCount: 2,
-                },
-                {
-                    id: 3,
-                    teamName: "Команда 3",
-                    teamTelegram: "team3",
-                    membersCount: 3,
-                },
-            ],
-        },
-    ]); //Массив мероприятий
+    const [events, setEvents] = useState([]); //Массив мероприятий
     const [showForm, setShowForm] = useState(false); //отображается ли форма добавления мероприятия
     const [selectedEvent, setSelectedEvent] = useState(null); //выбранное мероприятие
     const [editingEvent, setEditingEvent] = useState(null); //редактируемое мероприятие
@@ -43,11 +14,35 @@ const App = () => {
     const [showRegForm, setShowRegForm] = useState(false); //отображается ли форма добавления команды
     const [showLogForm, setShowLogForm] = useState(false); //отображается ли форма регистрации
 
+    // Функция для получения данных о мероприятиях с бэкенда
+    const fetchEvents = async () => {
+        try {
+            const response = await api.get("/get_events");
+            setEvents(response.data);
+        } catch (error) {
+            console.error("Ошибка при получении данных о мероприятиях:", error);
+        }
+    };
+
+    // Вызываем функцию для получения данных при монтировании компонента
+    useEffect(() => {
+        fetchEvents();
+    }, []);
+
     //добавление мероприятия в массив (скрывает форму добавления)
-    const addEvent = (event) => {
-        setEvents([event, ...events]);
-        setShowForm(false);
-        setTimeout(1000);
+    const addEvent = async (event) => {
+        try {
+            const response = await api.post("/add_event", {
+                name: event.name,
+                date: event.date,
+                description: event.description,
+                teamCount: event.teamCount
+            });
+            setEvents([event, ...events]);
+            setShowForm(false);
+        } catch (error) {
+            console.error("Ошибка при добавлении мероприятия:", error);
+        }
     };
 
     //обновление мероприятия
@@ -62,11 +57,16 @@ const App = () => {
     };
 
     //удаление мероприятие
-    const deleteEvent = (eventId) => {
-        setEvents(events.filter((event) => event.id !== eventId));
-        setSelectedEvent(null);
-        setEditingEvent(null);
-        setShowTeams(null);
+    const deleteEvent = async (eventId) => {
+        try {
+            await api.delete(`/delete_event/${eventID}`);
+            setEvents(events.filter((event) => event.id !== eventId));
+            setSelectedEvent(null);
+            setEditingEvent(null);
+            setShowTeams(null);
+        } catch (error) {
+            console.error("Ошибка при удалении мероприятия", error);
+        }
     };
 
     //устанавливает выбранное мероприятие для отображения деталей
@@ -111,25 +111,39 @@ const App = () => {
     };
 
     //добавление команды в массив мероприятия
-    const addTeam = (newTeam, event) => {
-        alert("команда успешно добавлена");
-        event.teams.push(newTeam); // Добавляем новую команду в массив teams выбранного мероприятия
-        setEvents([...events]); // Обновляем список мероприятий
-        setShowRegForm(false); // Закрываем форму регистрации
+    const addTeam = async (newTeam, event) => {
+        try {
+            const response = await api.post(`/event/${event.id}/add_team`, {
+                teamName: newTeam.teamName,
+                teamTelegram: newTeam.teamTelegram,
+                membersCount: newTeam.membersCount
+            });
+            alert("команда успешно добавлена");
+            event.teams.push(response.data); // Добавляем новую команду в массив teams выбранного мероприятия
+            setEvents([...events]); // Обновляем список мероприятий
+            setShowRegForm(false); // Закрываем форму регистрации
+        } catch (error) {
+            console.error("Ошибка при добавлении команды:", error);
+        }
     };
 
     //удаление команды (не до конца понимаю, как это работает, но тут суть в том, что обновить надо events, а изменился пропс teams)
-    const deleteTeam = (teamId, eventId) => {
-        setEvents((events) =>
-            events.map((event) =>
-                event.id === eventId
-                    ? {
-                        ...event,
-                        teams: event.teams.filter((team) => team.id !== teamId),
-                    }
-                    : event
-            )
-        );
+    const deleteTeam = async (teamId, eventId) => {
+        try {
+            await api.delete(`/event/${eventId}/delete_team/${teamId}`);
+            setEvents((events) =>
+                events.map((event) =>
+                    event.id === eventId
+                        ? {
+                            ...event,
+                            teams: event.teams.filter((team) => team.id !== teamId),
+                        }
+                        : event
+                )
+            );
+        } catch (error) {
+            console.error("Ошибка при удалении команды:", error);
+        }
     };
 
     return (

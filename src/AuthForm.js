@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "./api.js";
 
 const AuthForm = ({ setUserStatus }) => {
     const [users, setUsers] = useState([
@@ -16,6 +17,21 @@ const AuthForm = ({ setUserStatus }) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false); // залогинен или нет
     const [currentUser, setCurrentUser] = useState(null); // текущий пользователь
+
+    // Функция для получения данных о пользователях с бэкенда
+    const fetchUsers = async () => {
+        try {
+            const response = await api.get("/get_users");
+            setUsers(response.data);
+        } catch (error) {
+            console.error("Ошибка при получении данных о пользователях:", error);
+        }
+    };
+
+    // Вызываем функцию для получения данных при монтировании компонента
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
     const handleLogin = (event) => {
         event.preventDefault();
