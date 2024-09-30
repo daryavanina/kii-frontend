@@ -2,18 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "./api.js";
 
 const AuthForm = ({ setUserStatus }) => {
-    const [users, setUsers] = useState([
-        {
-            login: "1",
-            password: "1",
-            isAdmin: true,
-        },
-        {
-            login: "2",
-            password: "2",
-            isAdmin: false,
-        },
-    ]); // массив пользователей
+    const [users, setUsers] = useState([]); // массив пользователей
 
     const [isLoggedIn, setIsLoggedIn] = useState(false); // залогинен или нет
     const [currentUser, setCurrentUser] = useState(null); // текущий пользователь

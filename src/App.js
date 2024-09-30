@@ -32,7 +32,7 @@ const App = () => {
     //добавление мероприятия в массив (скрывает форму добавления)
     const addEvent = async (event) => {
         try {
-            const response = await api.post("/add_event", {
+            await api.post("/add_event", {
                 name: event.name,
                 date: event.date,
                 description: event.description,
@@ -59,7 +59,7 @@ const App = () => {
     //удаление мероприятие
     const deleteEvent = async (eventId) => {
         try {
-            await api.delete(`/delete_event/${eventID}`);
+            await api.delete(`/delete_event/${eventId}`);
             setEvents(events.filter((event) => event.id !== eventId));
             setSelectedEvent(null);
             setEditingEvent(null);
